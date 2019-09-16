@@ -11,7 +11,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "precommit": "lint-staged",
+    "commit": "git-cz"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -27,5 +29,50 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^8.1.0",
+    "@commitlint/config-conventional": "^8.1.0",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
+    "pre-commit": "^1.2.2",
+    "prettier": "^1.18.2"
+  },
+  "pre-commit": [
+    "precommit"
+  ],
+  "prettier": {
+    "useTabs": false,
+    "printWidth": 100,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "none",
+    "bracketSpacing": true,
+    "jsxBracketSameLine": false
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
